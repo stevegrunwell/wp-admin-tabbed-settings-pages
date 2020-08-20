@@ -4,7 +4,7 @@
 
 'use strict';
 
-(function () {
+(function (window, document) {
 	var tabWrapper = document.querySelector('.nav-tab-wrapper');
 	var tabs = tabWrapper.querySelectorAll('.nav-tab');
 	var panels = document.querySelectorAll('section[role="tabpanel"]');
@@ -48,4 +48,4 @@
 
 		setActiveTab(e.target.id);
 	})
-}());
+}(window, document));
