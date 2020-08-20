@@ -60,9 +60,9 @@ if ( ! function_exists( 'do_tabbed_settings_sections' ) ) {
 		echo '</nav>';
 
 		foreach ( (array) $wp_settings_sections[ $page ] as $section ) {
-			echo '<section id="tab-' . esc_attr( $section['id'] ) . '" role="tabpanel" aria-labelledby="nav-tab-' . esc_attr( $section['id'] ) . '">';
+			printf('<section id="tab-%1$s" role="tabpanel" aria-labelledby="nav-tab-%1$s">', esc_attr( $section['id'] ) );
 			if ( $section['title'] ) {
-				printf( '<h2>%1$s</h2>' . PHP_EOL, esc_html( $section['title'] ) );
+				printf( '<h2>%1$s</h2>%s', esc_html( $section['title'] ), PHP_EOL );
 			}
 
 			if ( $section['callback'] ) {
