@@ -14,26 +14,10 @@ cache:
     - $HOME/.composer/cache
 
 php:
-  - 7.4
   - 7.3
-  - 7.2
-  - 7.1
-  - 7.0
 
 env:
   - WP_VERSION=latest
-
-matrix:
-  fast_finish: true
-  include:
-    - name: Coding standards
-      php: 7.4
-      env: WP_TRAVISCI=phpcs
-    - name: Bleeding edge
-      php: 7.4
-      env: WP_VERSION=trunk
-  allow_failures:
-    - name: Bleeding edge
 
 before_install:
   - phpenv config-rm xdebug.ini || echo "xdebug.ini does not exist"
@@ -48,10 +32,6 @@ install:
 script:
   - | # Run PHPUnit
     if [[ ! -z "$WP_VERSION" ]] ; then
-      composer test:unit
+      composer test:unit -- --debug
       WP_MULTISITE=1 composer test:unit
-    fi
-  - | # Run PHP_CodeSniffer
-    if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
-      composer test:standards
     fi
