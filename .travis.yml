@@ -1,0 +1,57 @@
+dist: xenial
+language: php
+
+services:
+    - mysql
+
+notifications:
+  email:
+    on_success: never
+    on_failure: change
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+php:
+  - 7.4
+  - 7.3
+  - 7.2
+  - 7.1
+  - 7.0
+
+env:
+  - WP_VERSION=latest
+
+matrix:
+  fast_finish: true
+  include:
+    - name: Coding standards
+      php: 7.4
+      env: WP_TRAVISCI=phpcs
+    - name: Bleeding edge
+      php: 7.4
+      env: WP_VERSION=trunk
+  allow_failures:
+    - name: Bleeding edge
+
+before_install:
+  - phpenv config-rm xdebug.ini || echo "xdebug.ini does not exist"
+
+install:
+  - composer install --prefer-dist --no-interaction --no-suggest
+  - |
+    if [[ ! -z "$WP_VERSION" ]] ; then
+      vendor/bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+    fi
+
+script:
+  - | # Run PHPUnit
+    if [[ ! -z "$WP_VERSION" ]] ; then
+      phpunit
+      WP_MULTISITE=1 phpunit
+    fi
+  - | # Run PHP_CodeSniffer
+    if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
+      phpcs
+    fi

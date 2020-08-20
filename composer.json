@@ -1,0 +1,46 @@
+{
+    "name": "stevegrunwell/wp-admin-tabbed-settings-pages",
+    "description": "A polyfill for Trac #51086, bringing tabbed settings pages into WP-Admin.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Steve Grunwell",
+            "email": "steve@stevegrunwell.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require-dev": {
+        "assertwell/wp-core-test-framework": "^0.1.1",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+        "phpcompatibility/phpcompatibility-wp": "^2.1",
+        "phpunit/phpunit": "^7.5",
+        "wp-coding-standards/wpcs": "^2.3"
+    },
+    "scripts": {
+        "test": "@test:all",
+        "test:all": [
+            "@test:unit",
+            "@test:standards"
+        ],
+        "test:standards": [
+            "phpcs"
+        ],
+        "test:unit": [
+            "phpunit"
+        ]
+    },
+    "scripts-descriptions": {
+        "test": "Run all automated tests (alias of 'test:all').",
+        "test:all": "Run all automated tests.",
+        "test:standards": "Check coding standards.",
+        "test:unit": "Run unit tests"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "platform": {
+            "php": "7.3"
+        }
+    }
+}

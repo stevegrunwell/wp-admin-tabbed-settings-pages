@@ -1,0 +1,16 @@
+# Dependencies
+vendor
+
+# Archives and exports
+*.sql
+*.tar.gz
+*.zip
+
+# Local configurations
+phpcs.xml
+phpunit.xml
+wp-cli.local.yml
+
+# Hidden files
+.DS_Store
+Thumbs.db
