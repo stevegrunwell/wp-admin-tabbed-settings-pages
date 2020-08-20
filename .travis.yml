@@ -1,5 +1,9 @@
-dist: xenial
+# TravisCI configuration for stevegrunwell/wp-admin-tabbed-settings-pages
+
 language: php
+os:
+  - linux
+dist: xenial
 
 services:
     - mysql
@@ -11,25 +15,33 @@ notifications:
 
 cache:
   directories:
-    - $HOME/.composer/cache
+    - "${HOME}/.composer/cache"
 
 php:
   - 7.4
   - 7.3
   - 7.2
   - 7.1
-  - 7.0
 
 env:
   - WP_VERSION=latest
 
-matrix:
+jobs:
   fast_finish: true
   include:
-    - name: Coding standards
+    - name: "Check Composer configuration"
       php: 7.4
-      env: WP_TRAVISCI=phpcs
-    - name: Bleeding edge
+      install: skip
+      script:
+        - composer validate --strict
+    - name: "Coding standards"
+      php: 7.4
+      install:
+        - composer install --prefer-dist --no-interaction --no-suggest
+      script:
+        # Run PHP_CodeSniffer
+        - composer test:standards
+    - name: "Bleeding edge"
       php: 7.4
       env: WP_VERSION=trunk
   allow_failures:
@@ -40,18 +52,9 @@ before_install:
 
 install:
   - composer install --prefer-dist --no-interaction --no-suggest
-  - |
-    if [[ ! -z "$WP_VERSION" ]] ; then
-      vendor/bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-    fi
+  - vendor/bin/install-wp-tests.sh wordpress_test root "" localhost "${WP_VERSION}"
 
 script:
-  - | # Run PHPUnit
-    if [[ ! -z "$WP_VERSION" ]] ; then
-      composer test:unit
-      WP_MULTISITE=1 composer test:unit
-    fi
-  - | # Run PHP_CodeSniffer
-    if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
-      composer test:standards
-    fi
+  # Run PHPUnit
+  - composer test:unit
+  - WP_MULTISITE=1 composer test:unit
