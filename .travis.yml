@@ -48,10 +48,10 @@ install:
 script:
   - | # Run PHPUnit
     if [[ ! -z "$WP_VERSION" ]] ; then
-      phpunit
-      WP_MULTISITE=1 phpunit
+      composer test:unit
+      WP_MULTISITE=1 composer test:unit
     fi
   - | # Run PHP_CodeSniffer
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
-      phpcs
+      composer test:standards
     fi
