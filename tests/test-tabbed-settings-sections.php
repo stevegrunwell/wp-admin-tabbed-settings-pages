@@ -15,6 +15,19 @@ class TabbedSettingsSections extends WP_UnitTestCase {
 
 		$wp_settings_sections = array();
 
+		// Skip the tests if do_tabbed_settings_sections() is defined in WordPress core.
+		if ( function_exists( 'do_tabbed_settings_sections' ) ) {
+			$function = new \ReflectionFunction( 'do_tabbed_settings_sections' );
+			$filename = dirname( __DIR__ ) . '/wp-admin-tabbed-settings-pages.php';
+
+			if ( $filename !== $function->getFileName() ) {
+				$this->markTestSkipped(
+					'do_tabbed_settings_sections() has been defined somewhere besides %1$s, skipping test.',
+					$filename
+				);
+			}
+		}
+
 		/*
 		 * In order to prevent conflicts with WordPress core should do_tabbed_settings_sections()
 		 * make it in, don't load the plugin in the test suite until we reach this point.
