@@ -1,5 +1,8 @@
 # WP-Admin Tabbed Settings Pages (Polyfill)
 
+[![Build Status](https://travis-ci.com/stevegrunwell/wp-admin-tabbed-settings-pages.svg?branch=develop)](https://travis-ci.com/stevegrunwell/wp-admin-tabbed-settings-pages)
+[![WordPress Trac #51086](https://img.shields.io/badge/trac%20ticket-51086-blue)](https://core.trac.wordpress.org/ticket/51086)
+
 This package contains a polyfill for [WordPress Core Trac ticket #51086](https://core.trac.wordpress.org/ticket/51086), wherein a standard for tabbed settings pages within WP-Admin has been proposed.
 
 The proposal centers around a new function as part of [the Settings API](https://codex.wordpress.org/Settings_API): `do_tabbed_settings_sections()`, which is identical to [`do_settings_sections()`](https://developer.wordpress.org/reference/functions/do_settings_sections/) except that each section is rendered in a separate tab.
