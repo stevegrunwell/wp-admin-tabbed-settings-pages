@@ -4,7 +4,7 @@
  * Description: A polyfill for Trac #51086, bringing tabbed settings pages into WP-Admin.
  * Author:      Steve Grunwell
  * Author URI:  https://stevegrunwell.com
- * Version:     0.1.1
+ * Version:     0.1.2
  */
 
 /**
@@ -18,7 +18,7 @@ if ( ! function_exists( 'wp_admin_tabbed_settings_register_script' ) ) {
 			'wp-admin-tabs',
 			plugins_url( 'assets/tabs.js', __FILE__ ),
 			array(),
-			'0.1.1',
+			'0.1.2',
 			true
 		);
 	}
@@ -72,12 +72,12 @@ if ( ! function_exists( 'do_tabbed_settings_sections' ) ) {
 				call_user_func( $section['callback'], $section );
 			}
 
-			if ( ! isset( $wp_settings_fields[ $page ][ $section['id'] ] ) ) {
-				continue;
+			if ( isset( $wp_settings_fields[ $page ][ $section['id'] ] ) ) {
+				echo '<table class="form-table" role="presentation">';
+				do_settings_fields( $page, $section['id'] );
+				echo '</table>';
 			}
-			echo '<table class="form-table" role="presentation">';
-			do_settings_fields( $page, $section['id'] );
-			echo '</table>';
+
 			echo '</section>';
 		}
 
