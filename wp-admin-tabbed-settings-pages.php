@@ -69,7 +69,7 @@ if ( ! function_exists( 'do_tabbed_settings_sections' ) ) {
 				call_user_func( $section['callback'], $section );
 			}
 
-			if ( ! isset( $wp_settings_fields ) || ! isset( $wp_settings_fields[ $page ] ) || ! isset( $wp_settings_fields[ $page ][ $section['id'] ] ) ) {
+			if ( ! isset( $wp_settings_fields[ $page ][ $section['id'] ] ) ) {
 				continue;
 			}
 			echo '<table class="form-table" role="presentation">';
