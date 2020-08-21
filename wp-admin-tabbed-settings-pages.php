@@ -65,7 +65,7 @@ if ( ! function_exists( 'do_tabbed_settings_sections' ) ) {
 				printf( '<h2>%1$s</h2>' . PHP_EOL, esc_html( $section['title'] ) );
 			}
 
-			if ( $section['callback'] ) {
+			if ( is_callable( $section['callback'] ) ) {
 				call_user_func( $section['callback'], $section );
 			}
 
