@@ -54,7 +54,7 @@ class TabbedSettingsSections extends WP_UnitTestCase {
 		$this->assertContains( '<section id="tab-tabbed-settings-1" role="tabpanel"', $output );
 
 		$this->assertTrue(
-			wp_script_is( 'settings-tabs', 'enqueued' ),
+			wp_script_is( 'wp-admin-tabs', 'enqueued' ),
 			'The tab script should have been enqueued.'
 		);
 	}
