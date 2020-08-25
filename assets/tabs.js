@@ -30,6 +30,17 @@
 		});
 	}
 
+	/**
+	 * Get the ID of the active tab.
+	 *
+	 * @return {string} The ID of the active tab.
+	 */
+	function getActiveTab() {
+		var active = tabWrapper.querySelector('.nav-tab-active') || tabs[0];
+
+		return active.id || '';
+	}
+
 	// Return early if there are no tabs on the page.
 	if (! tabs || ! panels) {
 		return;
@@ -39,7 +50,7 @@
 	var currentTab = window.location.hash.substr(1);
 	currentTab = currentTab ? 'nav-tab-' + currentTab : tabs[0].getAttribute('id');
 
-	// Set the current tab and register the event listener.
+	// Set the current tab and register the event listeners.
 	setActiveTab(currentTab);
 	tabWrapper.addEventListener('click', function (e) {
 		if ('A' !== e.target.tagName) {
@@ -47,5 +58,14 @@
 		}
 
 		setActiveTab(e.target.id);
-	})
+	});
+
+	// Listen for other changes to the window hash.
+	window.addEventListener('hashchange', function () {
+		var id = window.location.hash.substr(1);
+
+		if (id !== getActiveTab()) {
+			setActiveTab('nav-tab-' + id);
+		}
+	});
 }(window, document));
