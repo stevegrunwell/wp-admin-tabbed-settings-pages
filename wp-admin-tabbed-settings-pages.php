@@ -63,7 +63,7 @@ if ( ! function_exists( 'do_tabbed_settings_sections' ) ) {
 		echo '</nav>';
 
 		foreach ( (array) $wp_settings_sections[ $page ] as $section ) {
-			printf( '<section id="tab-%1$s" role="tabpanel" aria-labelledby="nav-tab-%1$s">', esc_attr( $section['id'] ) );
+			printf( '<section id="tab-%1$s" class="hide-if-js" role="tabpanel" aria-labelledby="nav-tab-%1$s">', esc_attr( $section['id'] ) );
 			if ( $section['title'] ) {
 				printf( '<h2 class="tabbed-section-heading">%1$s</h2>%2$s', esc_html( $section['title'] ), PHP_EOL );
 			}
