@@ -24,6 +24,7 @@
 		panels.forEach(function (panel) {
 			if (panel.getAttribute('aria-labelledby') === tabId) {
 				panel.removeAttribute('hidden');
+				panel.classList.remove('hide-if-js');
 			} else {
 				panel.setAttribute('hidden', true);
 			}
