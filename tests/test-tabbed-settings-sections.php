@@ -64,7 +64,7 @@ class TabbedSettingsSections extends WP_UnitTestCase {
 			'<a href="#tabbed-settings-1" id="nav-tab-tabbed-settings-1" class="nav-tab" role="tab">Tabbed settings 1</a>',
 			$output
 		);
-		$this->assertContains( '<section id="tab-tabbed-settings-1" role="tabpanel"', $output );
+		$this->assertContains( '<section id="tab-tabbed-settings-1" class="hide-if-js" role="tabpanel"', $output );
 
 		$this->assertTrue(
 			wp_script_is( 'wp-admin-tabs', 'enqueued' ),
@@ -89,7 +89,7 @@ class TabbedSettingsSections extends WP_UnitTestCase {
 			'<a href="#tabbed-settings-1" id="nav-tab-tabbed-settings-1" class="nav-tab" role="tab">Tabbed settings 1</a>',
 			$output
 		);
-		$this->assertNotContains( '<section id="tab-tabbed-settings-1" role="tabpanel"', $output );
+		$this->assertNotContains( '<section id="tab-tabbed-settings-1" class="hide-if-js" role="tabpanel"', $output );
 
 		$this->assertFalse(
 			wp_script_is( 'settings-tabs', 'enqueued' ),
